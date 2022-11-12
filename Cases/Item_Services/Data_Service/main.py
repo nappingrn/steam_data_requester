@@ -1,4 +1,4 @@
-from Data_Requester.Data_Requester import Generate_Item_File, showDir
+from Data_Requester.Data_Requester import Generate_Item_File
 import os
 
 def main():

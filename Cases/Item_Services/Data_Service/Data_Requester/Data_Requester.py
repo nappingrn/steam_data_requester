@@ -4,8 +4,6 @@ import requests
 import os
 from .Steam_Market_Data_Transformer import Transform_String, Create_Json_Item
 
-def showDir():
-    print(os.path.dirname(__file__) + "Data_Config\wear.json")
 
 def Generate_Item_File():
 
@@ -17,7 +15,7 @@ def Generate_Item_File():
     items = open(os.path.dirname(__file__) +  "\Data_Config\map_data.json","r",encoding="UTF-8")
     collection_items = json.loads(items.read())
 
-    writing = open(os.path.dirname(__file__) +  "\Data_Config\wear.json" + time.strftime("%Y-%m-%d", time.gmtime()) + ".json", "a")
+    writing = open(os.path.dirname(__file__) +  "\Data_Config\\" + time.strftime("%Y-%m-%d", time.gmtime()) + ".json", "a")
 
     count = 0
     items = {}

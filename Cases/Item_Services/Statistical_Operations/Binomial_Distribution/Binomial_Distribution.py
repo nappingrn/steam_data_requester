@@ -13,7 +13,7 @@ def N_Pick_K(n,k): # n! / (k! * (n-k)!)
     return n / (k * math.factorial(minus))
 
  
-def Binomial_Distribution(k,n,p):
+def Binomial_Distribution(k,n,p): # testing a push
 
     n_picked = N_Pick_K(n,k)
 

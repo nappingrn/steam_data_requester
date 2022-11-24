@@ -1,0 +1,18 @@
+{
+    "Normal":{
+        "Mil-Spec" : 79.92327,
+        "Restricted":  15.98465,
+        "Classified":  3.19693,
+        "Covert":  0.63939,
+        "Special Items/Knives":  0.25575
+    },
+
+
+    "StatTrack":{
+        "Mil-Spec" : 7.992327,
+        "Restricted":  1.598465,
+        "Classified":  0.319693,
+        "Covert":  0.063939,
+        "Special Items/Knives":  0.025575
+    }
+}

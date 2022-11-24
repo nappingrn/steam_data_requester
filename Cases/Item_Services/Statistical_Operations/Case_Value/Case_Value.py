@@ -10,6 +10,9 @@ rarity = json.loads(rarity_file.read())
 
 items = [[0.0,0.0],[0.0,0.0],[0.0,0.0],[0.0,0.0],[0.0,0.0]]
 
+
+key_price = 2.5
+
 total = 0
 for collection_item in collection_items:
 
@@ -22,12 +25,15 @@ for collection_item in collection_items:
         if internal_item.get("rarity") == "Mil-Spec":
             items[0][0] += 1
             items[0][1] += float(price.replace("$",""))
+
         elif internal_item.get("rarity") == "Restricted":
             items[1][0] += 1
             items[1][1] += float(price.replace("$",""))
+
         elif internal_item.get("rarity") == "Classified":
             items[2][0] += 1
             items[2][1] += float(price.replace("$",""))
+
         elif internal_item.get("rarity") == "Covert":
             items[3][0] += 1
             items[3][1] += float(price.replace("$",""))
@@ -38,7 +44,17 @@ for collection_item in collection_items:
         print("retry: " + internal_item.get("rarity") + " | "+internal_item.get("skin") + " (" +internal_item.get("wear") +")")
 
 count = 0
+
 for grade in rarity["Normal"]:
-    total += items[count][1] * rarity["Normal"].get(grade) / items[count][0]
+
+    if(items[count][1] == 0):
+        count+=1
+        continue
+
+    print(grade + ":" + str( (items[count][1] / items[count][0]) * (rarity["Normal"].get(grade) / 100)))
+
+    total += (items[count][1] / items[count][0]) * (rarity["Normal"].get(grade) / 100)
+    count+=1
   
-print(total)
+print("per 2.50, return " + str(total))
+print("normalized to " + str(total / 2.5)  + " returned per dollar ")

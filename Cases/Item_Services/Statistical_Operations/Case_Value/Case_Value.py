@@ -9,11 +9,13 @@ rarity_file = open("rarity.json", "r", encoding="UTF-8")
 rarity = json.loads(rarity_file.read())
 
 items = [[0.0,0.0],[0.0,0.0],[0.0,0.0],[0.0,0.0],[0.0,0.0]]
-
+tiers = [[0,0.0,0.0],[0,0.0,0.0],[0,0.0,0.0],[0,0.0,0.0],[0,0.0,0.0]]
 
 key_price = 2.5
 
+
 total = 0
+
 for collection_item in collection_items:
 
     internal_item = collection_items.get(collection_item)
@@ -21,24 +23,29 @@ for collection_item in collection_items:
     if(internal_item.get("price_info").get("success") == True):
 
         price = internal_item.get("price_info").get("lowest_price") if internal_item.get("price_info").get("lowest_price") != None else internal_item.get("price_info").get("median_price")
+        item_price = float(price.replace("$",""))
+
+        item_index = 0
 
         if internal_item.get("rarity") == "Mil-Spec":
-            items[0][0] += 1
-            items[0][1] += float(price.replace("$",""))
-
+            item_index = 0
         elif internal_item.get("rarity") == "Restricted":
-            items[1][0] += 1
-            items[1][1] += float(price.replace("$",""))
-
+            item_index = 1
         elif internal_item.get("rarity") == "Classified":
-            items[2][0] += 1
-            items[2][1] += float(price.replace("$",""))
-
+            item_index = 2
         elif internal_item.get("rarity") == "Covert":
-            items[3][0] += 1
-            items[3][1] += float(price.replace("$",""))
+            item_index = 3
         else:
             print("Knife")
+            continue
+        
+        items[item_index][0] += 1
+        items[item_index][1] += item_price
+        
+        tiers[item_index][0] += 1
+        tiers[item_index][1] += item_price
+        tiers[item_index][2] = min(tiers[item_index][2],item_price)
+
     else:
         print()
         print("retry: " + internal_item.get("rarity") + " | "+internal_item.get("skin") + " (" +internal_item.get("wear") +")")

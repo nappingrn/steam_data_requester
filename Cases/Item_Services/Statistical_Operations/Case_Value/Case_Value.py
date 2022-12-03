@@ -9,7 +9,7 @@ rarity_file = open("rarity.json", "r", encoding="UTF-8")
 rarity = json.loads(rarity_file.read())
 
 items = [[0.0,0.0],[0.0,0.0],[0.0,0.0],[0.0,0.0],[0.0,0.0]]
-tiers = [[0,0.0,0.0],[0,0.0,0.0],[0,0.0,0.0],[0,0.0,0.0],[0,0.0,0.0]]
+tiers = [[0,0.0,10000000000.0],[0,0.0,10000000000.0],[0,0.0,10000000000.0],[0,0.0,10000000000.0],[0,0.0,10000000000.0]]
 
 key_price = 2.5
 
@@ -38,6 +38,9 @@ for collection_item in collection_items:
         else:
             print("Knife")
             continue
+
+        if(tiers[item_index][2] < item_price):
+            print(internal_item.get("rarity") + " " + internal_item.get("name") + " "  + internal_item.get("skin") + " " + internal_item.get("wear"))
         
         items[item_index][0] += 1
         items[item_index][1] += item_price
@@ -46,9 +49,12 @@ for collection_item in collection_items:
         tiers[item_index][1] += item_price
         tiers[item_index][2] = min(tiers[item_index][2],item_price)
 
+
+
     else:
-        print()
         print("retry: " + internal_item.get("rarity") + " | "+internal_item.get("skin") + " (" +internal_item.get("wear") +")")
+
+print("\n")
 
 count = 0
 
@@ -58,10 +64,25 @@ for grade in rarity["Normal"]:
         count+=1
         continue
 
-    print(grade + ":" + str( (items[count][1] / items[count][0]) * (rarity["Normal"].get(grade) / 100)))
+    print("grade: " + grade + ": " + str( (items[count][1] / items[count][0]) * (rarity["Normal"].get(grade) / 100)) + " dollars returned per 2.50")
 
     total += (items[count][1] / items[count][0]) * (rarity["Normal"].get(grade) / 100)
     count+=1
-  
+
+
+for i in range(0, len(tiers)-1):
+
+    if tiers[i][0] <= 0 or tiers[i][1] <= 0 or tiers[i][2] <= 0:
+        continue
+    
+    lowest_price = (tiers[i][2] * 10)
+    average_higher_tier = tiers[i][1] / tiers[i][0]
+
+    print("returns for tier " + str(i) + " is " + str(average_higher_tier-lowest_price))
+
+
+
+print()
 print("per 2.50, return " + str(total))
 print("normalized to " + str(total / 2.5)  + " returned per dollar ")
+

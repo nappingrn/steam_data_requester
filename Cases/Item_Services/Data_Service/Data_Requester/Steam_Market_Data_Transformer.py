@@ -3,13 +3,14 @@ def Transform_String(inputString):
     inputString = inputString.replace("|", "%7C")
     return inputString
 
-def Create_Json_Item( name, skin, wear, price_info):
+def Create_Json_Item( name, skin, wear, price_info, rarity):
 
     data = {}
     data['name'] = name
     data['skin'] = skin
     data['wear'] = wear
     data['price_info'] = price_info
+    data['rarity'] = rarity
 
     return data
 

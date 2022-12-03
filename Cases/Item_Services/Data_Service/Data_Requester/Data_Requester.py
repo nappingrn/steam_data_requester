@@ -12,7 +12,7 @@ def Generate_Item_File():
     wears = open(os.path.dirname(__file__) +  "\Data_Config\wear.json","r",encoding="UTF-8")
     item_wears = json.loads(wears.read())
 
-    items = open(os.path.dirname(__file__) +  "\Data_Config\map_data.json","r",encoding="UTF-8")
+    items = open(os.path.dirname(__file__) +  "\Data_Config\map_data.json","r",encoding="UTF-8") ## contains rarity
     collection_items = json.loads(items.read())
 
     writing = open(os.path.dirname(__file__) +  "\Data_Config\\" + time.strftime("%Y-%m-%d", time.gmtime()) + ".json", "a")
@@ -28,7 +28,7 @@ def Generate_Item_File():
             print(count)
             response = requests.get(url_to_request)
             json_price_info = json.loads(response.content)
-            items[str(count)] = Create_Json_Item( item["weapon"], item["name"], wear, json_price_info)
+            items[str(count)] = Create_Json_Item( item["weapon"], item["name"], wear, json_price_info, item['grade'])
 
             count+=1
             time.sleep(10)
